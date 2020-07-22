@@ -290,6 +290,24 @@ public final class DropDown: UIView {
 		willSet { tableViewContainer.layer.shadowRadius = newValue }
 		didSet { reloadAllComponents() }
 	}
+    
+    /**
+     The border width of the background.
+     */
+    public var borderWidth: CGFloat = 0 {
+        didSet {
+            tableViewContainer.layer.borderWidth = borderWidth
+        }
+    }
+    
+    /**
+     The border color of the background.
+     */
+    public var borderColor: UIColor = .clear {
+        didSet {
+            tableViewContainer.layer.borderColor = borderColor.cgColor
+        }
+    }
 
 	/**
 	The duration of the show/hide animation.
