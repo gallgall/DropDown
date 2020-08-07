@@ -41,7 +41,7 @@ extension UIBarButtonItem: AnchorView {
 }
 
 /// A Material Design drop down in replacement for `UIPickerView`.
-public final class DropDown: UIView {
+open class DropDown: UIView {
 
 	//TODO: handle iOS 7 landscape mode
 
@@ -229,6 +229,11 @@ public final class DropDown: UIView {
 		}
 		didSet { reloadAllComponents() }
 	}
+    
+    /// Returns the height needed to display all cells.
+    open var tableHeight: CGFloat {
+        return tableView.rowHeight * CGFloat(dataSource.count)
+    }
 
 	/**
 	Alias method for `cornerRadius` variable to avoid ambiguity.
@@ -1033,11 +1038,6 @@ extension DropDown {
 		guard let row = (tableView.indexPathForSelectedRow as NSIndexPath?)?.row else { return nil }
 
 		return dataSource[row]
-	}
-
-	/// Returns the height needed to display all cells.
-	fileprivate var tableHeight: CGFloat {
-		return tableView.rowHeight * CGFloat(dataSource.count)
 	}
 
     //MARK: Objective-C methods for converting the Swift type Index
