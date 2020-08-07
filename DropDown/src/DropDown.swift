@@ -234,6 +234,15 @@ open class DropDown: UIView {
     open var tableHeight: CGFloat {
         return tableView.rowHeight * CGFloat(dataSource.count)
     }
+    
+    /// Force scrollable or not.
+    public var isMustScrollEnabled: Bool = false {
+        didSet {
+            if isMustScrollEnabled {
+                tableView.isScrollEnabled = true
+            }
+        }
+    }
 
 	/**
 	Alias method for `cornerRadius` variable to avoid ambiguity.
@@ -592,7 +601,11 @@ extension DropDown {
 		widthConstraint.constant = layout.width
 		heightConstraint.constant = layout.visibleHeight
 
-		tableView.isScrollEnabled = layout.offscreenHeight > 0
+        if isMustScrollEnabled {
+            tableView.isScrollEnabled = true
+        } else {
+            tableView.isScrollEnabled = layout.offscreenHeight > 0
+        }
 
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.flashScrollIndicators()
